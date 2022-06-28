@@ -1,0 +1,11 @@
+[[package]]
+name = "black"
+version = "22.6.0"
+description = "The uncompromising code formatter."
+category = "dev"
+optional = false
+python-versions = ">=3.6.2"
+
+*************************************
+binary file that should not be manally changed
+*************************************

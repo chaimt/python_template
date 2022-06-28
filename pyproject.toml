@@ -1,0 +1,92 @@
+[tool.poetry]
+packages = [
+    { include = "main_code" },
+]
+name = "main_code-cli"
+version = "0.1.221"
+description = "cli tool for python project"
+repository = "https://github.com/chaimt/python_template"
+authors = ["Chaim Turkel <cyturel@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+click = "^8.0.3"
+click-repl = "^0.2.0"
+singleton-decorator = "^1.0.0"
+SQLAlchemy = "^1.4.26"
+pre-commit = "^2.15.0"
+click-command-tree = "^1.1.0"
+click-plugins = "^1.1.1"
+click-log = "^0.3.2"
+rich = "^11.2.0"
+rich-click = "^1.2.1"
+mashumaro = "2.9"
+
+
+[tool.poetry.dev-dependencies]
+setuptools = "^58.5.3"
+flake8-black = "^0.2.3"
+isort = "^5.10.1"
+pytest = "^5.2"
+flake8 = "^4.0.1"
+tox = "^3.24.4"
+coverage = "^6.0.2"
+pytest-mock = "^3.6.1"
+pytest-cov = "^3.0.0"
+mockito = "^1.3.0"
+pytest-mockito = "^0.0.4"
+
+[tool.black]
+line-length = 120
+target-version = ['py39']
+include = '(main_code\/.*$|tests\/.*$|\.pyi?$)'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | __pycache__
+  )/
+)
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 120
+skip_glob = [ "docs", "notes" ]
+skip="__pycache__"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+main_cli = 'main_code.click_task:loop_repl'
+main_validate = 'main_code.click_task.validate_hook:main'
+
+[tool.pytest.ini_options]
+log_main_code = true
+log_main_code_level = "INFO"
+log_main_code_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_main_code_date_format = "%Y-%m-%d %H:%M:%S"
+
+[tool.dephell.main]
+# read from poetry format
+from = {format = "poetry", path = "pyproject.toml"}
+# drop dev-dependencies
+envs = ["main"]
+# and convert into setup.py
+to = {format = "setuppy", path = "setup.py"}
+
+[[tool.poetry.source]]
+name = "repositories.main_code-cli"
+url = "https://my_company.jfrog.io/artifactory/api/pypi/pypi-local/simple"
